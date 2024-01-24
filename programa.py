@@ -58,6 +58,8 @@ data2['hora'] = pd.to_datetime(data2['hora'], format='%H:%M:%S')
 data1['hora'] = data1['hora'].dt.hour * 60 + data1['hora'].dt.minute
 data2['hora'] = data2['hora'].dt.hour * 60 + data2['hora'].dt.minute
 
+data1.to_csv('data1.csv', index=False)
+data2.to_csv('data2.csv', index=False)
 # Imprimir el contenido del archivo CSV
 # print(data1)
 # print(data2)
