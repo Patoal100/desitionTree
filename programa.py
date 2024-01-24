@@ -2,8 +2,10 @@ import pandas as pd
 from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
-import datetime
+import time
 
+# Marca el tiempo de inicio
+start_time = time.time()
 # Leer el archivo CSV
 data1 = pd.read_csv('cam_1_df.csv')
 data2 = pd.read_csv('cam_2_df.csv')
@@ -115,14 +117,21 @@ for i, modelo in enumerate(modelos):
 
 # Calcular el número de '1' que cada modelo predijo
 num_unos = predicciones.apply(lambda x: (x == 1).sum())
-print(num_unos)
+
+# Guardar num_unos en un archivo CSV
+num_unos.to_csv('num_unos.csv', index=False)
 
 # Crear un gráfico de barras con estos números
-# plt.bar(num_unos.index, num_unos.values)
-# plt.xlabel('Espacios de parqueo de la cámara 1')
-# plt.ylabel('Uso predecido por el modelo 1')
-# plt.title('Uso de espacios de parqueo de la cámara 1')
+plt.bar(num_unos.index, num_unos.values)
+plt.xlabel('Espacios de parqueo de la cámara 1')
+plt.ylabel('Uso predecido por el modelo 1')
+plt.title('Uso de espacios de parqueo de la cámara 1')
 # plt.show()
+
+# Guardar la gráfica en un archivo
+plt.savefig('grafica.png')
+
+plt.close()
 
 # Crear una lista para almacenar las nuevas tablas
 tablas2 = []
@@ -176,11 +185,24 @@ for i, modelo in enumerate(modelos2):
 
 # Calcular el número de '1' que cada modelo predijo
 num_unos = predicciones2.apply(lambda x: (x == 1).sum())
-print(num_unos)
+
+# Guardar num_unos en un archivo CSV
+num_unos.to_csv('num_unos2.csv', index=False)
+
+# Marca el tiempo de finalización
+end_time = time.time()
+
+# Calcula e imprime el tiempo de ejecución en milisegundos
+execution_time = (end_time - start_time) * 1000
+print(f"El tiempo de ejecución del método es: {execution_time} milisegundos")
 
 # Crear un gráfico de barras con estos números
-# plt.bar(num_unos.index, num_unos.values)
-# plt.xlabel('Espacios de parqueo de la cámara 2')
-# plt.ylabel('Uso predecido por el modelo 2')
-# plt.title('Uso de espacios de parqueo de la cámara 2')
+plt.bar(num_unos.index, num_unos.values)
+plt.xlabel('Espacios de parqueo de la cámara 2')
+plt.ylabel('Uso predecido por el modelo 2')
+plt.title('Uso de espacios de parqueo de la cámara 2')
 # plt.show()
+# Guardar la gráfica en un archivo
+plt.savefig('grafica2.png')
+
+plt.close()
