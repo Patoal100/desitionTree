@@ -1,6 +1,4 @@
 import pandas as pd
-from sklearn.tree import DecisionTreeClassifier, DecisionTreeRegressor
-from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 import time
 from pyspark.sql import SparkSession
@@ -8,6 +6,9 @@ from pyspark.sql.functions import col
 from pyspark.ml.classification import DecisionTreeClassifier
 from pyspark.ml.feature import VectorAssembler
 from pyspark.sql.functions import split, to_date, date_format, hour, minute
+from pyspark.sql import Window
+from pyspark.sql.functions import row_number
+
 
 # Crear una sesión de Spark
 spark = SparkSession.builder.appName('DecisionTree').getOrCreate()
@@ -18,9 +19,16 @@ start_time = time.time()
 data1 = spark.read.csv('cam_1_df.csv', header=True, inferSchema=True)
 data2 = spark.read.csv('cam_2_df.csv', header=True, inferSchema=True)
 
-# Elimina la primera fila
-data1 = data1.filter(col('index') != 0)
-data2 = data2.filter(col('index') != 0)
+window = Window.orderBy(data1['index'])
+
+# Añade una columna de números de fila basada en el orden de 'index'
+data1 = data1.withColumn('row_num', row_number().over(window))
+
+# Filtra para eliminar la primera fila
+data1 = data1.filter(data1['row_num'] > 1)
+
+# Opcionalmente, puedes eliminar la columna 'row_num' si ya no la necesitas
+data1 = data1.drop('row_num')
 
 # Reemplaza los valores NaN en la columna 'p_0' con 1
 data2 = data2.na.fill({'p_0': 1})
