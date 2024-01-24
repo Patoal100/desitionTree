@@ -115,13 +115,14 @@ for i, modelo in enumerate(modelos):
 
 # Calcular el número de '1' que cada modelo predijo
 num_unos = predicciones.apply(lambda x: (x == 1).sum())
+print(num_unos)
 
 # Crear un gráfico de barras con estos números
-plt.bar(num_unos.index, num_unos.values)
-plt.xlabel('Espacios de parqueo de la cámara 1')
-plt.ylabel('Uso predecido por el modelo 1')
-plt.title('Uso de espacios de parqueo de la cámara 1')
-plt.show()
+# plt.bar(num_unos.index, num_unos.values)
+# plt.xlabel('Espacios de parqueo de la cámara 1')
+# plt.ylabel('Uso predecido por el modelo 1')
+# plt.title('Uso de espacios de parqueo de la cámara 1')
+# plt.show()
 
 # Crear una lista para almacenar las nuevas tablas
 tablas2 = []
@@ -175,10 +176,11 @@ for i, modelo in enumerate(modelos2):
 
 # Calcular el número de '1' que cada modelo predijo
 num_unos = predicciones2.apply(lambda x: (x == 1).sum())
+print(num_unos)
 
 # Crear un gráfico de barras con estos números
-plt.bar(num_unos.index, num_unos.values)
-plt.xlabel('Espacios de parqueo de la cámara 2')
-plt.ylabel('Uso predecido por el modelo 2')
-plt.title('Uso de espacios de parqueo de la cámara 2')
-plt.show()
+# plt.bar(num_unos.index, num_unos.values)
+# plt.xlabel('Espacios de parqueo de la cámara 2')
+# plt.ylabel('Uso predecido por el modelo 2')
+# plt.title('Uso de espacios de parqueo de la cámara 2')
+# plt.show()
