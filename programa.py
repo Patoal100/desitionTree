@@ -2,6 +2,7 @@ from pyspark.sql import SparkSession
 from pyspark.ml.classification import DecisionTreeClassifier
 from pyspark.ml.feature import VectorAssembler
 from pyspark.sql.functions import lit
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
 import matplotlib.pyplot as plt
 import pandas as pd
 import time
