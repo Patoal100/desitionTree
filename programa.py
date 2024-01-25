@@ -76,8 +76,8 @@ predicciones = []
 
 for i, modelo in enumerate(modelos):
     prediction = modelo.transform(X_test)
-    predicciones.append(prediction.select('prediction').collect())
-
+    num_unos = prediction.filter(prediction['prediction'] == lit(1)).count()
+    predicciones.append(num_unos)
 
 # Guardar num_unos en un archivo CSV
 pd.DataFrame(predicciones, columns=['num_unos']).to_csv('num_unos.csv', index=False)
