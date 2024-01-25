@@ -97,6 +97,8 @@ for tabla in tablas:
     
     # Dividir los datos en conjuntos de entrenamiento y prueba
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+    X_test.to_csv('X_test.csv', index=False)
     
     # Crear y entrenar el modelo de árbol de decisión
     modelo = DecisionTreeClassifier(random_state=42)
