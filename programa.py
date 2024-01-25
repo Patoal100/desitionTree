@@ -64,6 +64,13 @@ for i, tabla in enumerate(tablas):
     accuracy = evaluator.evaluate(predictions)
     print(f'Precisión del modelo {ultima_columna}: {accuracy}')
 
+# Supongamos que tienes un conjunto de datos de prueba en un archivo CSV
+X_test = spark.read.csv('X_test.csv', header=True, inferSchema=True)
+
+# Transformar los datos de prueba
+assembler = VectorAssembler(inputCols=columnas_comunes, outputCol="features")
+X_test = assembler.transform(X_test)
+
 # Supongamos que tienes un conjunto de datos de prueba X_test
 predicciones = []
 
