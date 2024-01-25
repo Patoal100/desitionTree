@@ -79,14 +79,11 @@ for i, modelo in enumerate(modelos):
     predicciones.append(prediction.select('prediction').collect())
 
 
-# Calcular el número de '1' que cada modelo predijo
-num_unos = [prediction.filter(prediction['prediction'] == lit(1)).count() for prediction in predicciones]
-
 # Guardar num_unos en un archivo CSV
-pd.DataFrame(num_unos, columns=['num_unos']).to_csv('num_unos.csv', index=False)
+pd.DataFrame(predicciones, columns=['num_unos']).to_csv('num_unos.csv', index=False)
 
 # Crear un gráfico de barras con estos números
-plt.bar(range(len(num_unos)), num_unos)
+plt.bar(range(len(pd)),pd)
 plt.xlabel('Espacios de parqueo de la cámara 1')
 plt.ylabel('Uso predecido por el modelo 1')
 plt.title('Uso de espacios de parqueo de la cámara 1')
